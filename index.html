@@ -56,7 +56,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   background: var(--bg);
   padding: 60px 20px 80px;
-  overflow: hidden;
+  overflow: visible;
   background-image:
     linear-gradient(rgba(245,185,66,0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(245,185,66,0.05) 1px, transparent 1px);
@@ -78,6 +78,7 @@ a { color: inherit; text-decoration: none; }
 .hero__container {
   position: relative;
   z-index: 2;
+  overflow: visible;
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
@@ -86,7 +87,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   min-height: 620px;
 }
-.hero__content { grid-column: 2; }
+.hero__content { grid-column: 2; overflow: visible; }
 .hero__logo { width: 200px; max-width: 100%; height: auto; margin-bottom: 28px; }
 .hero__title {
   font-size: clamp(26px, 3.2vw, 38px);
@@ -103,7 +104,7 @@ a { color: inherit; text-decoration: none; }
 .hero__formlead { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; }
 
 /* FORM */
-.lead-form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+.lead-form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; overflow: visible; }
 .lead-form__field { background: #fff; border-radius: 6px; overflow: hidden; }
 .lead-form__field input {
   width: 100%; padding: 16px 18px;
@@ -266,14 +267,124 @@ a { color: inherit; text-decoration: none; }
     <input type="email" id="email" name="email" placeholder="E-mail" required>
   </div>
 
+  <input type="hidden" id="ddi-value" name="ddi" value="+52">
+
+  <!-- DDI trigger button -->
   <div class="lead-form__field lead-form__field--phone">
-    <div class="lead-form__country">
-      <span class="flag">🇲🇽</span>
-      <span>+52</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    <div class="ddi-trigger" id="ddi-trigger">
+      <img src="https://flagcdn.com/w20/mx.png" id="ddi-flag-img" alt="MX" class="ddi-flag-img">
+      <span id="ddi-code-text">+52</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <input type="tel" id="phone" name="phone" placeholder="Teléfono">
   </div>
+
+  <!-- DDI panel — fora do campo, no fluxo normal -->
+  <div id="ddi-panel" style="display:none; background:#fff; border:1px solid #ddd; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.15); max-height:260px; overflow-y:auto; width:100%; margin-top:-8px;">
+    <ul id="ddi-list" style="list-style:none;margin:0;padding:6px 0;">
+      <li data-ddi="+52" data-code="mx"><img src="https://flagcdn.com/w20/mx.png"> <b>+52</b> <span>México</span></li>
+      <li data-ddi="+54" data-code="ar"><img src="https://flagcdn.com/w20/ar.png"> <b>+54</b> <span>Argentina</span></li>
+      <li data-ddi="+591" data-code="bo"><img src="https://flagcdn.com/w20/bo.png"> <b>+591</b> <span>Bolivia</span></li>
+      <li data-ddi="+55" data-code="br"><img src="https://flagcdn.com/w20/br.png"> <b>+55</b> <span>Brasil</span></li>
+      <li data-ddi="+56" data-code="cl"><img src="https://flagcdn.com/w20/cl.png"> <b>+56</b> <span>Chile</span></li>
+      <li data-ddi="+57" data-code="co"><img src="https://flagcdn.com/w20/co.png"> <b>+57</b> <span>Colombia</span></li>
+      <li data-ddi="+506" data-code="cr"><img src="https://flagcdn.com/w20/cr.png"> <b>+506</b> <span>Costa Rica</span></li>
+      <li data-ddi="+53" data-code="cu"><img src="https://flagcdn.com/w20/cu.png"> <b>+53</b> <span>Cuba</span></li>
+      <li data-ddi="+593" data-code="ec"><img src="https://flagcdn.com/w20/ec.png"> <b>+593</b> <span>Ecuador</span></li>
+      <li data-ddi="+503" data-code="sv"><img src="https://flagcdn.com/w20/sv.png"> <b>+503</b> <span>El Salvador</span></li>
+      <li data-ddi="+34" data-code="es"><img src="https://flagcdn.com/w20/es.png"> <b>+34</b> <span>España</span></li>
+      <li data-ddi="+1" data-code="us"><img src="https://flagcdn.com/w20/us.png"> <b>+1</b> <span>Estados Unidos</span></li>
+      <li data-ddi="+502" data-code="gt"><img src="https://flagcdn.com/w20/gt.png"> <b>+502</b> <span>Guatemala</span></li>
+      <li data-ddi="+504" data-code="hn"><img src="https://flagcdn.com/w20/hn.png"> <b>+504</b> <span>Honduras</span></li>
+      <li data-ddi="+505" data-code="ni"><img src="https://flagcdn.com/w20/ni.png"> <b>+505</b> <span>Nicaragua</span></li>
+      <li data-ddi="+507" data-code="pa"><img src="https://flagcdn.com/w20/pa.png"> <b>+507</b> <span>Panamá</span></li>
+      <li data-ddi="+595" data-code="py"><img src="https://flagcdn.com/w20/py.png"> <b>+595</b> <span>Paraguay</span></li>
+      <li data-ddi="+51" data-code="pe"><img src="https://flagcdn.com/w20/pe.png"> <b>+51</b> <span>Perú</span></li>
+      <li data-ddi="+1787" data-code="pr"><img src="https://flagcdn.com/w20/pr.png"> <b>+1787</b> <span>Puerto Rico</span></li>
+      <li data-ddi="+1809" data-code="do"><img src="https://flagcdn.com/w20/do.png"> <b>+1809</b> <span>Rep. Dominicana</span></li>
+      <li data-ddi="+598" data-code="uy"><img src="https://flagcdn.com/w20/uy.png"> <b>+598</b> <span>Uruguay</span></li>
+      <li data-ddi="+58" data-code="ve"><img src="https://flagcdn.com/w20/ve.png"> <b>+58</b> <span>Venezuela</span></li>
+    </ul>
+  </div>
+
+  <style>
+    .lead-form__field--phone { padding: 0; align-items: stretch; }
+    .lead-form__field--phone input[type="tel"] {
+      border: none; outline: none; font-size: 16px;
+      padding: 16px 14px; width: 100%;
+      font-family: inherit; color: #333; background: white;
+    }
+    .ddi-trigger {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 10px 0 14px; min-height: 54px;
+      border-right: 1px solid #ddd; cursor: pointer;
+      background: white; flex-shrink: 0; user-select: none;
+    }
+    .ddi-flag-img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; }
+    .ddi-trigger span { font-size: 15px; font-weight: 600; color: #333; white-space: nowrap; }
+    #ddi-panel ul li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; cursor: pointer; font-size: 14px; color: #333;
+    }
+    #ddi-panel ul li:hover { background: #f5f5f5; }
+    #ddi-panel ul li.active { background: #fff8e6; }
+    #ddi-panel ul li img { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; flex-shrink: 0; }
+    #ddi-panel ul li b { min-width: 40px; font-weight: 700; }
+    #ddi-panel ul li span { color: #888; font-size: 13px; }
+    #ddi-panel::-webkit-scrollbar { width: 4px; }
+    #ddi-panel::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+  </style>
+
+  <script>
+    (function() {
+      var trigger  = document.getElementById('ddi-trigger');
+      var panel    = document.getElementById('ddi-panel');
+      var list     = document.getElementById('ddi-list');
+      var ddiValue = document.getElementById('ddi-value');
+      var flagImg  = document.getElementById('ddi-flag-img');
+      var codeText = document.getElementById('ddi-code-text');
+      var phone    = document.getElementById('phone');
+      var form     = document.getElementById('_form_3_');
+      var open     = false;
+
+      function togglePanel() {
+        open = !open;
+        panel.style.display = open ? 'block' : 'none';
+      }
+
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        togglePanel();
+      });
+
+      document.addEventListener('click', function() {
+        if (open) { open = false; panel.style.display = 'none'; }
+      });
+
+      list.addEventListener('click', function(e) {
+        var li = e.target.closest('li');
+        if (!li) return;
+        var ddi  = li.dataset.ddi;
+        var code = li.dataset.code;
+        flagImg.src = 'https://flagcdn.com/w20/' + code + '.png';
+        flagImg.alt = code.toUpperCase();
+        codeText.textContent = ddi;
+        ddiValue.value = ddi;
+        list.querySelectorAll('li').forEach(function(el){ el.classList.remove('active'); });
+        li.classList.add('active');
+        open = false; panel.style.display = 'none';
+      });
+
+      // Marcar México como ativo
+      list.querySelector('[data-code="mx"]').classList.add('active');
+
+      // Concatenar DDI ao submeter
+      form.addEventListener('submit', function() {
+        var num = phone.value.trim().replace(/^0+/, '');
+        if (num) phone.value = ddiValue.value + ' ' + num;
+      }, true);
+    })();
+  </script>
 
   <button type="submit" class="btn-cta" id="_form_3_submit">QUIERO ASEGURAR MI LUGAR</button>
 
